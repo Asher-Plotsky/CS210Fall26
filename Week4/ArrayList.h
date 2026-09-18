@@ -61,9 +61,10 @@ class ArrayList {
         return false;
     }
     void printArray() {
-        for (int i = 0; i < size; i++) {
+        for (int i = 0; i < size - 1; i++) {
             std::cout << data[i] << ", ";
         }
+        std::cout << data[size - 1];
         std::cout << std::endl;
     }
 

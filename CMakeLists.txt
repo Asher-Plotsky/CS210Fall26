@@ -7,4 +7,7 @@ add_executable(Week2 Week2/main.cpp
         Week2/shape_utility.h
         Week2/shape_utility.cpp)
 add_executable(Week4 Week4/main.cpp
-        Week4/ArrayList.h)
+        Week4/ArrayList.h
+        Week4/Node.h
+        Week4/Data.cpp
+        Week4/LinkedList.h)
