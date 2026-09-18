@@ -9,3 +9,6 @@
 /dataSources/
 /dataSources.local.xml
 /vcs.xml
+/editor.xml
+/misc.xml
+/modules.xml
