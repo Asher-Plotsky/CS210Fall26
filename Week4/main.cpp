@@ -1,55 +1,28 @@
-#include <iostream>
-#include <ostream>
-#include "ArrayList.h"
 //
 // Created by asher on 9/15/2026.
 //
-class Box {
-    public:
-    Box(int value) : data(new int(value)){}
-
-    ~Box() {
-        delete data;
-        data = nullptr;
-    }
-    int value() {
-        return *data;
-    }
-
-    private:
-    int *data;
-};
-
+#include <iostream>
+#include "List.h"
+#include "Data.h"
 int main() {
-    std::cout << "Box" << std::endl;
-    Box *box = new Box(5);
-    std::cout << box->value() << std::endl;
-    delete box;
-
-    srand(time(nullptr));
-    std::cout << "Array List" << std::endl;
-    ArrayList<int> *arr;
-    arr = new ArrayList<int>();
-    for (int i = 0; i < 10; i++) {
-        int decider = rand() % 2;
-        if (decider) {
-            arr->addFront(i);
-        }
-        else {
-            arr->addBack(i);
-        }
-    }
-    arr->printArray();
-    for (int i = 0; i < 5; i++) {
-        arr->deleteFront();
-    }
-    arr->printArray();
-    arr->deleteBack();
-    arr->printArray();
-    std::cout << (arr->search(5) ? "True" : "False") << std::endl;
-    delete arr;
-
-    std::cout << "Linked List" << std::endl;
-
+    std::unique_ptr<List<int>> list = makeList<int>();
+    list->addFront(new int(10));
+    list->addFront(new int(20));
+    list->addFront(new int(30));
+    list->print();
+    int key = 20;
+    std::cout << "search(20): "
+    << (list->search(&key) ? "found" : "not found") << std::endl;
+    list->deleteFront();
+    list->print();
+    std::unique_ptr<List<Data>> roster = makeList<Data>();
+    roster->addFront(new Data(1, "Alice"));
+    roster->addFront(new Data(2, "Bilal"));
+    roster->addFront(new Data(3, "Chen"));
+    roster->print();
+    Data query(2, "");
+    std::cout << "search(id 2): "
+    << (roster->search(&query) ? "found" : "not found")
+    << std::endl;
     return 0;
 }

@@ -10,4 +10,6 @@ add_executable(Week4 Week4/main.cpp
         Week4/ArrayList.h
         Week4/Node.h
         Week4/Data.cpp
-        Week4/LinkedList.h)
+        Week4/LinkedList.h
+        Week4/List.h
+        Week4/Data.h)

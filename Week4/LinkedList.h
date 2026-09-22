@@ -5,68 +5,50 @@
 #pragma once
 #include "Node.h"
 
+
 template <typename T>
-class LinkedList {
-    public:
-    Node<T>* head;
-    int size;
-    LinkedList(T *value) {
-        Node<T>* temp = new Node<T>(value);
-        head = temp;
-        size = 1;
+class LinkedList : public List<T> {
+public:
+    LinkedList() : head_(nullptr) {}
+    void addFront(T* value) override {
+        Node<T>* fresh = new Node<T>(value);
+        fresh->next = head_;
+        head_ = fresh;
     }
-    LinkedList() {
-        head = nullptr;
-        size = 0;
-    }
-    void addFront(T *value) {
-        if (head == nullptr) {
-            head = new Node<T>(value);
-            size++;
+    void deleteFront() override {
+        if (head_ == nullptr) {
+            std::cout << "LinkedList is empty." << std::endl;
             return;
         }
-        Node<T>* temp = new Node<T>(value);
-        temp->next = head;
-        head = temp;
-        size++;
+        Node<T>* doomed = head_;
+        head_ = head_->next;
+        delete doomed->data;
+        delete doomed;
     }
-    void addBack(T *value) {
-        Node<T>* newNode = new Node<T>(value);
-        if (head == nullptr) {
-            head = newNode;
-            size++;
-            return;
+    bool search(T* value) const override {
+        Node<T>* current = head_;
+        while (current != nullptr) {
+            if (*current->data == *value) return true;
+            current = current->next;
         }
-        Node<T>* temp = head;
-        while (temp->next != nullptr) {
-            temp = temp->next;
-        }
-        temp->next = newNode;
-        size++;
+        return false;
     }
-    void deleteFront() {
-        if (head == nullptr) {
-            return;
+    void print() const override {
+        Node<T>* current = head_;
+        while (current != nullptr) {
+            std::cout << *current->data << ",";
+            current = current->next;
         }
-        head = head->next;
-        size--;
+        std::cout << std::endl;
     }
-    void deleteBack() {
-        if (head == nullptr) {
-            return;
-        }
-        Node<T>* temp = head;
-        while (temp->next->next != nullptr) {
-            temp = temp->next;
-        }
-        temp->next = nullptr;
-        size--;
-    }
-    void print() {
-        Node<T>* temp = head;
-        while (temp != nullptr) {
-            std::cout << temp->print() << std::endl;
-            temp = temp->next;
+    ~LinkedList() override {
+        while (head_ != nullptr) {
+            Node<T>* doomed = head_;
+            head_ = head_->next;
+            delete doomed->data;
+            delete doomed;
         }
     }
+private:
+    Node<T>* head_;
 };

@@ -6,71 +6,51 @@
 
 #include <iostream>
 
+
 template <typename T>
-class ArrayList {
+class ArrayList : public List<T> {
     public:
-    ArrayList():size(0) {}
-    ~ArrayList() {}
-    void addBack(T item) {
-        if (!(size >= CAPACITY)) {
-            data[size++] = item;
+    void addFront(T* value) override {
+        if (size_ >= CAPACITY) {
+            std::cout << "ArrayList is full." << std::endl;
+            return;
         }
-        else {
-            std::cout << "Array is full" << std::endl;
+        for (int i = size_; i > 0; --i) {
+            data_[i] = data_[i - 1];
         }
+        data_[0] = value;
+        ++size_;
     }
-    void addFront(T item) {
-        if (!(size >= CAPACITY)) {
-            for (int i = size; 0 < i; i--) {
-                data[i] = data[i - 1];
-            }
-            data[0] = item;
-            size++;
+    void deleteFront() override{
+        if (size_ == 0) {
+            std::cout << "ArrayList is empty." << std::endl;
+            return;
         }
-        else {
-            std::cout << "Array is full" << std::endl;
+        delete data_[0];
+        for (int i = 0; i < size_ - 1; ++i) {
+            data_[i] = data_[i + 1];
         }
+        --size_;
     }
-    void deleteFront() {
-        if (!(size <= 0)) {
-            for (int i = 0; i < size - 1; i++) {
-                data[i] = data[i + 1];
-            }
-            size--;
-        }
-        else {
-            std::cout << "Array is empty" << std::endl;
-        }
-    }
-    void deleteBack() {
-        if (!(size <= 0)) {
-            data[size-- - 1] = 0;
-        }
-        else {
-            std::cout << "Array is empty" << std::endl;
-        }
-    }
-    bool search(T item) {
-        if (size != 0) {
-            for (int i = 0; i < size; i++) {
-                if (data[i] == item) {
-                    return true;
-                }
-            }
+    bool search(T* value) const override {
+        for (int i = 0; i < size_; ++i) {
+            if (*data_[i] == *value) return true;
         }
         return false;
     }
-    void printArray() {
-        for (int i = 0; i < size - 1; i++) {
-            std::cout << data[i] << ", ";
+    void print() const override {
+        for (int i = 0; i < size_; ++i) {
+            std::cout << *data_[i] << ",";
         }
-        std::cout << data[size - 1];
         std::cout << std::endl;
     }
-
-    private:
+    ~ArrayList() override {
+        for (int i = 0; i < size_; ++i) {
+            delete data_[i];
+        }
+    }
+private:
     static const int CAPACITY = 20;
-    T data[CAPACITY];
-    int size;
-
+    T* data_[CAPACITY];
+    int size_;
 };
