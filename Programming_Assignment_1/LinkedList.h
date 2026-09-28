@@ -97,6 +97,7 @@ public:
             previous = current;
             current = next;
         }
+        head_ = previous;
     }
     bool search(T* value) const override {
         Node<T>* current = head_;
@@ -115,9 +116,22 @@ public:
         std::cout << std::endl;
     }
     void concat(List<T>* other) override{
-        LinkedList<T>* newList = dynamic_cast<LinkedList*>(other);
+        LinkedList* newList = dynamic_cast<LinkedList*>(other);
+        if (head_ == nullptr) {
+            head_ = newList->head_;
+        }
         if (newList == nullptr){
             std::cout << "Not a List." << std::endl;
+        }
+        else{
+            Node<T>* current = head_;
+            while (current->next != nullptr){
+                current = current->next;
+            }
+            current->next = newList->head_;
+            size_ += newList->size_;
+            newList->size_ = 0;
+            newList->head_ = nullptr;
         }
     }
     ~LinkedList() override {

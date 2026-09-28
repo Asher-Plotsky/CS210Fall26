@@ -95,6 +95,7 @@ class ArrayList : public List<T> {
                     newList->data_[j] = nullptr;
                 }
                 size_ += newList->size_;
+                newList->size_ = 0;
 
             }
         }
