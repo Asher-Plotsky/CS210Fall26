@@ -21,4 +21,5 @@ add_executable(Programming_Assignment_1 Programming_Assignment_1/main.cpp
     Programming_Assignment_1/main.cpp
     Programming_Assignment_1/Node.h
     Programming_Assignment_1/Player.h
-    Programming_Assignment_1/Stack.h)
+    Programming_Assignment_1/Stack.h
+        Programming_Assignment_1/Card.h)
