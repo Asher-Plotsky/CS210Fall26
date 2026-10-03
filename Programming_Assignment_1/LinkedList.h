@@ -134,6 +134,30 @@ public:
             newList->head_ = nullptr;
         }
     }
+    void drawRound() override{
+        Node<T>* current = head_;
+        while (current != nullptr) {
+            if constexpr (std::is_same_v<T,Player>) {
+                current->data->draw();
+            }
+            else {
+                return;
+            }
+            current = current->next;
+        }
+    }
+    void playRound() override {
+        Node<T>* current = head_;
+        while (current != nullptr) {
+            if constexpr (std::is_same_v<T,Player>) {
+                current->data->play();
+            }
+            else {
+                return;
+            }
+            current = current->next;
+        }
+    }
     ~LinkedList() override {
         while (head_ != nullptr) {
             Node<T>* doomed = head_;

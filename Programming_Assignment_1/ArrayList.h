@@ -100,6 +100,20 @@ class ArrayList : public List<T> {
             }
         }
     }
+    void drawRound() override {
+        if constexpr (std::is_same_v<T, Player>) {
+            for (int i = 0; i < size_; ++i) {
+                data_[i]->draw();
+            }
+        }
+    }
+    void playRound() override {
+        if constexpr (std::is_same_v<T, Player>) {
+            for (int i = 0; i < size_; ++i) {
+                data_[i]->play();
+            }
+        }
+    }
     ~ArrayList() override {
         for (int i = 0; i < size_; ++i) {
             delete data_[i];

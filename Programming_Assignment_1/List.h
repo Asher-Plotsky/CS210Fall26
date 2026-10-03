@@ -4,6 +4,7 @@
 
 #pragma once
 #include <memory>
+#include "Player.h"
 template <typename T>
 class List {
 public:
@@ -16,6 +17,8 @@ public:
     virtual void deleteAnywhere(int position) = 0;
     virtual void reverse() = 0;
     virtual void concat(List<T>* other) = 0;
+    virtual void drawRound() = 0;
+    virtual void playRound() = 0;
 };
 #include "ArrayList.h"
 #include "LinkedList.h"
