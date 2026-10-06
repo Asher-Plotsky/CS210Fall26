@@ -14,12 +14,23 @@ add_executable(Week4 Week4/main.cpp
         Week4/List.h
         Week4/Data.h)
 add_executable(Programming_Assignment_1 Programming_Assignment_1/main.cpp
-    Programming_Assignment_1/ArrayList.h
-    Programming_Assignment_1/Data.h
-    Programming_Assignment_1/LinkedList.h
-    Programming_Assignment_1/List.h
-    Programming_Assignment_1/main.cpp
-    Programming_Assignment_1/Node.h
-    Programming_Assignment_1/Player.h
-    Programming_Assignment_1/Stack.h
+        Programming_Assignment_1/ArrayList.h
+        Programming_Assignment_1/Data.h
+        Programming_Assignment_1/LinkedList.h
+        Programming_Assignment_1/List.h
+        Programming_Assignment_1/main.cpp
+        Programming_Assignment_1/Node.h
+        Programming_Assignment_1/Player.h
+        Programming_Assignment_1/Stack.h
         Programming_Assignment_1/Card.h)
+add_executable(Week6 Week6/main.cpp
+        Week6/ArrayList.h
+        Week6/Data.h
+        Week6/LinkedList.h
+        Week6/List.h
+        Week6/Node.h
+        Week6/Queue.h
+        Week6/Stack.h
+        Week6/StackList.h
+        Week6/QueueList.h
+        Week6/Process.h)
