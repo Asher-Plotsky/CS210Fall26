@@ -7,6 +7,7 @@
 
 // STEP 3 and STEP 5 of the lab guide: uncomment these two includes
 // once the files exist.
+#include "Process.h"
 #include "StackList.h"
 #include "QueueList.h"
 
@@ -37,11 +38,11 @@ int main() {
     stack.print();                                           // 2,1,
     std::cout << "size: " << stack.size() << std::endl;      // 2
 
-    std::cout << std::endl << "== Stack<Data> ==" << std::endl;
-    StackList<Data> dataStack;
-    dataStack.push(new Data(1, "Alice"));
-    dataStack.push(new Data(2, "Bilal"));
-    dataStack.push(new Data(3, "Chen"));
+    std::cout << std::endl << "== Stack<Process> ==" << std::endl;
+    StackList<Process> dataStack;
+    dataStack.push(new Process(1, "Alice", ""));
+    dataStack.push(new Process(2, "Bilal", ""));
+    dataStack.push(new Process(3, "Chen", ""));
     dataStack.print();                                       // 3 Chen,2 Bilal,1 Alice,
     dataStack.pop();
     std::cout << "peek: " << *dataStack.peek() << std::endl; // 2 Bilal
@@ -65,11 +66,11 @@ int main() {
     queue.print();                                           // 2,3,
     std::cout << "size: " << queue.size() << std::endl;      // 2
 
-    std::cout << std::endl << "== Queue<Data> ==" << std::endl;
-    QueueList<Data> dataQueue;
-    dataQueue.enqueue(new Data(1, "Alice"));
-    dataQueue.enqueue(new Data(2, "Bilal"));
-    dataQueue.enqueue(new Data(3, "Chen"));
+    std::cout << std::endl << "== Queue<Process> ==" << std::endl;
+    QueueList<Process> dataQueue;
+    dataQueue.enqueue(new Process(1, "Alice", ""));
+    dataQueue.enqueue(new Process(2, "Bilal", ""));
+    dataQueue.enqueue(new Process(3, "Chen", ""));
     dataQueue.print();                                       // 1 Alice,2 Bilal,3 Chen,
     dataQueue.dequeue();
     std::cout << "front: " << *dataQueue.front() << std::endl; // 2 Bilal
