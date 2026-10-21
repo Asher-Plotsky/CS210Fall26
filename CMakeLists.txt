@@ -34,3 +34,5 @@ add_executable(Week6 Week6/main.cpp
         Week6/StackList.h
         Week6/QueueList.h
         Week6/Process.h)
+add_executable(Week8 Week8/main.cpp)
+add_executable(Week9 Week9/Main.cpp)
