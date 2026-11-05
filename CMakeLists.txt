@@ -36,3 +36,11 @@ add_executable(Week6 Week6/main.cpp
         Week6/Process.h)
 add_executable(Week8 Week8/main.cpp)
 add_executable(Week9 Week9/Main.cpp)
+add_executable(Programming_Assignment_2 Programming_Assignment_2/main.cpp
+        Programming_Assignment_2/Adventure.cpp
+        Programming_Assignment_2/Adventure.h
+        Programming_Assignment_2/Item.h
+        Programming_Assignment_2/List.h
+        Programming_Assignment_2/Node.h
+        Programming_Assignment_2/Scene.h
+        Programming_Assignment_2/StoryTree.h)
