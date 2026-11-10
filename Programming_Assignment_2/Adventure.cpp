@@ -87,6 +87,20 @@ Scene<Moment>* Adventure::readScene(std::ifstream& in, const std::string& label)
 //     and ask again.
 //   - If the input ends (getline fails), return 0.
 int Adventure::askChoice(int numChoices) {
+    int choice;
+    try {
+        do {
+            std::string input;
+            std::cout << "Your choice: ";
+            std::cin >> input;
+            choice = std::stoi(input);
+            if(!(choice <= numChoices && choice > 0)) {
+                std::cout << "Please type a number from 1 to " << numChoices << "." << std::endl;
+            }
+        } while (!(choice <= numChoices && choice > 0));
+        return choice;
+    }
+    catch (std::exception& e) {}
     return 0;
 }
 
@@ -108,6 +122,7 @@ int Adventure::askChoice(int numChoices) {
 // and then print the bag.
 // The bag is a List<Item>. Start with HP = startHp_ and loot = 0.
 void Adventure::play() {
+
 }
 
 // ===================== ANALYZING =====================
@@ -165,4 +180,5 @@ int Adventure::bestLoot(Scene<Moment>* scene, int hp, const std::string& path, s
 //   Optimal advisor
 //     Result: no path survives this story
 void Adventure::optimalRun() const {
+
 }
