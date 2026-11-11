@@ -63,8 +63,33 @@ std::string Adventure::extendPath(const std::string& path, int choiceNumber) con
 //   - Build the whole story with readScene. The first scene's label is "START".
 //   - If anything failed, return false. Otherwise give the story to tree_.
 bool Adventure::load(const std::string& fileName) {
+    std::ifstream in(fileName);
+    if (!in.is_open()) {
+        std::cout << "Error: could not open file <" << fileName << ">" << std::endl;
+        return false;
+    }
+    try
+    {
+        std::string line;
+        if (!std::getline(in, line)) {
+            return false;
+        }
+        if (line.find("START_HP") != std::string::npos) {
+            line = line.substr(8);
+            startHp_ = std::stoi(line);
+            StoryTree<Moment>* tree_ = new StoryTree<Moment>();
+            tree_ -> setRoot(readScene(in, "START"));
 
-    return false;
+            in.close();
+            return true;
+        }
+        in.close();
+        return false;
+    }
+    catch (std::exception& e) {
+        in.close();
+        return false;
+    }
 }
 
 // TODO 11: read ONE scene and everything below it. Return it.
@@ -88,20 +113,21 @@ Scene<Moment>* Adventure::readScene(std::ifstream& in, const std::string& label)
 //     and ask again.
 //   - If the input ends (getline fails), return 0.
 int Adventure::askChoice(int numChoices) {
-    int choice = 0;
-    while (!(choice <= numChoices && choice > 0)) {
-        try {
-            std::string input;
-            std::cout << "Your choice: ";
-            std::cin >> input;
-            choice = std::stoi(input);
+    while (true) {
+        std::cout << "Your choice: ";
+        std::string line;
+        if (!std::getline(std::cin, line)) {
+            return 0;
         }
-        catch (std::exception& e) {}
-        if(!(choice <= numChoices && choice > 0)) {
-            std::cout << "Please type a number from 1 to " << numChoices << "." << std::endl;
+        bool isNumber = !line.empty();
+        for (unsigned char c : line) {
+            if (!std::isdigit(c)) isNumber = false;
         }
+        if (isNumber && std::stoi(line) <= numChoices && std::stoi(line) > 0) {
+            return std::stoi(line);
+        }
+        std::cout << "Please type a number from 1 to " << numChoices << "." << std::endl;
     }
-    return choice;
 }
 
 // TODO 13: play the story once from the start.
