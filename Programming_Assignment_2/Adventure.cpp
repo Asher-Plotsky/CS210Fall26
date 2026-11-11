@@ -63,6 +63,7 @@ std::string Adventure::extendPath(const std::string& path, int choiceNumber) con
 //   - Build the whole story with readScene. The first scene's label is "START".
 //   - If anything failed, return false. Otherwise give the story to tree_.
 bool Adventure::load(const std::string& fileName) {
+
     return false;
 }
 
@@ -87,21 +88,20 @@ Scene<Moment>* Adventure::readScene(std::ifstream& in, const std::string& label)
 //     and ask again.
 //   - If the input ends (getline fails), return 0.
 int Adventure::askChoice(int numChoices) {
-    int choice;
-    try {
-        do {
+    int choice = 0;
+    while (!(choice <= numChoices && choice > 0)) {
+        try {
             std::string input;
             std::cout << "Your choice: ";
             std::cin >> input;
             choice = std::stoi(input);
-            if(!(choice <= numChoices && choice > 0)) {
-                std::cout << "Please type a number from 1 to " << numChoices << "." << std::endl;
-            }
-        } while (!(choice <= numChoices && choice > 0));
-        return choice;
+        }
+        catch (std::exception& e) {}
+        if(!(choice <= numChoices && choice > 0)) {
+            std::cout << "Please type a number from 1 to " << numChoices << "." << std::endl;
+        }
     }
-    catch (std::exception& e) {}
-    return 0;
+    return choice;
 }
 
 // TODO 13: play the story once from the start.
@@ -132,6 +132,9 @@ void Adventure::play() {
 //   Endings: <count>
 //   Longest playthrough: <height> choices
 void Adventure::printStats() const {
+    std::cout << "" << std::endl;
+    std::cout << "" << std::endl;
+    std::cout << "" << std::endl;
 }
 
 // TODO 15: print every ending in the story, one per line.
