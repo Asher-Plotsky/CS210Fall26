@@ -30,6 +30,7 @@ public:
     void play();
     void printStats() const;
     void printSpoilers() const;
+    void printSpoilers(Scene<Moment>* scene) const; //added for TO DO 15.
     void greedyRun() const;
     void optimalRun() const;
 };

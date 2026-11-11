@@ -77,9 +77,7 @@ bool Adventure::load(const std::string& fileName) {
         if (line.find("START_HP") != std::string::npos) {
             line = line.substr(8);
             startHp_ = std::stoi(line);
-            StoryTree<Moment>* tree_ = new StoryTree<Moment>();
-            tree_ -> setRoot(readScene(in, "START"));
-
+            tree_.setRoot(readScene(in, "START"));
             in.close();
             return true;
         }
@@ -158,13 +156,31 @@ void Adventure::play() {
 //   Endings: <count>
 //   Longest playthrough: <height> choices
 void Adventure::printStats() const {
-    std::cout << "" << std::endl;
-    std::cout << "" << std::endl;
-    std::cout << "" << std::endl;
+    std::cout << tree_.countScenes() << std::endl;
+    std::cout << tree_.countEndings() << std::endl;
+    std::cout << std::to_string(tree_.height()) << std::endl;
 }
 
 // TODO 15: print every ending in the story, one per line.
 void Adventure::printSpoilers() const {
+    if (tree_.getRoot() == nullptr) {
+        return;
+    }
+    printSpoilers(tree_.getRoot());
+}
+
+//Could not figure out how to do it in the first method, so I made a new one.
+void Adventure::printSpoilers(Scene<Moment>* scene) const {
+    if (scene == nullptr) {
+        return;
+    }
+    if (scene->getNumChoices() == 0) {
+        std::cout <<scene->getData()->getText() << std::endl;
+        return;
+    }
+    for (int i = 0; i < scene->getNumChoices(); i++) {
+        printSpoilers(scene->getChoice(i));
+    }
 }
 
 // TODO 16: print every ending below scene.
@@ -174,6 +190,25 @@ void Adventure::printSpoilers() const {
 // If the very first scene is an ending, print "Path (start): <scene text>".
 // Endings print in order: choice 1 before choice 2 before choice 3.
 void Adventure::printEndings(Scene<Moment>* scene, const std::string& path) const {
+    if (scene == nullptr) {
+        return;
+    }
+    if (scene -> getNumChoices() == 0) {
+        if (tree_.getRoot() == scene) {
+            std::cout << "Path (start): " << scene -> getData() -> getText() << std::endl;
+            return;
+        }
+        std::cout <<"Path " << path << ": " << scene -> getData() -> getText() << std::endl;
+        return;
+    }
+    for (int i = 0; i < scene -> getNumChoices(); i++) {
+        if (path.empty()) {
+            printEndings(scene -> getChoice(i), std::to_string(i + 1));
+        }
+        else {
+            printEndings(scene -> getChoice(i), path + "-" + std::to_string(i + 1));
+        }
+    }
 }
 
 // TODO 17: the greedy advisor.

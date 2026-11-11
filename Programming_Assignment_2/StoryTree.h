@@ -45,11 +45,11 @@ private:
     // An empty story has height -1.
     int height(Scene<T>* scene) const {
         if (scene != nullptr) {
-            int height = -1;
+            int currHeight = -1;
             for (int i = 0; i < scene->getNumChoices(); ++i) {
-                height = std::max(height, height(scene->getChoice(i)));
+                currHeight = std::max(currHeight, height(scene->getChoice(i)));
             }
-            return height + 1;
+            return currHeight + 1;
         }
         return -1;
     }
