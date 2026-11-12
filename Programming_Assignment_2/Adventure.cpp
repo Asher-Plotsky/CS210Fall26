@@ -99,6 +99,53 @@ bool Adventure::load(const std::string& fileName) {
 //   - If anything goes wrong at any depth, return nullptr
 //     and make sure nothing you already built is leaked.
 Scene<Moment>* Adventure::readScene(std::ifstream& in, const std::string& label) {
+    std::string line;
+    int hp;
+    std::string text;
+    int level;
+    int choice;
+    for (int i = 0; i < 5; i++) {
+        if (!std::getline(in, line)) {
+            return nullptr;
+        }
+        level = line.substr(0, line.find_first_not_of(" ")).length() / 2;
+        line.erase(0,line.find_first_not_of(" "));
+        if (line.find("HP") != std::string::npos) {
+            hp = std::stoi(line.substr(2));
+        }
+        if (line.find("LOOT") != std::string::npos) {
+
+        }
+        if (line.find("ITEM") != std::string::npos) {
+
+        }
+        if (line.find("CHOICES") != std::string::npos) {
+            if (std::stoi(line.substr(5)) > Scene<Moment>::MAX_CHOICES || std::stoi(line.substr(5)) < 0) {
+                std::cout << "Error: scene " << text <<" has " << line.substr(5) << " choices. The limit is 3." << std::endl;
+                return nullptr;
+            }
+            choice = std::stoi(line.substr(5));
+        }
+        if (line.find("SCENE") != std::string::npos) {
+            text = line.substr(5);
+            text = text.erase(0,text.find_first_not_of(" "));
+        }
+    }
+    for (int i = 0; i < choice; i++) {
+        while (true) {
+            if (!std::getline(in, line)) {
+                return nullptr;
+            }
+            if (line.find("Label") != std::string::npos){
+                text = line.substr(5);
+                text = text.erase(0,text.find_first_not_of(" "));
+                if (readScene(in, text) == nullptr) {
+                    return nullptr;
+                }
+                break;
+            }
+        }
+    }
     return nullptr;
 }
 
