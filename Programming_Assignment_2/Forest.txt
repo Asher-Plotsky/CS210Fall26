@@ -1,0 +1,204 @@
+START_HP 10
+SCENE You wake up in a dark forest.
+HP 0
+LOOT 0
+ITEM none
+CHOICES 3
+LABEL Search the surrounding area.
+  SCENE You hear a crack in the near distance.
+  HP 0
+  LOOT 3
+  ITEM Flashlight
+  CHOICES 2
+  LABEL Walk towards the noise.
+    SCENE Pointing with your flashlight, you notice something in the distance.
+    HP 0
+    LOOT 0
+    ITEM none
+    CHOICES 3
+    LABEL Call out towards it.
+      SCENE The creature runs away, you check out what it was doing.
+      HP 0
+      LOOT 4
+      ITEM Bloody cloth.
+      CHOICES 2
+      LABEL Follow the creature.
+        SCENE The creature notices you and attacks.
+        HP -10
+        LOOT 0
+        ITEM none
+        CHOICES 0
+      LABEL Go the opposite direction.
+        SCENE Running through the foliage without much thought, you fall off of a cliff.
+        HP -10
+        LOOT 0
+        ITEM none
+        CHOICES 0
+    LABEL Turn off your flashlight and walk towards the creature silently.
+      SCENE The creature mauls you and runs away.
+      HP -8
+      LOOT 0
+      ITEM None
+      CHOICES 2
+      LABEL
+        SCENE
+        HP
+        LOOT
+        ITEM
+        CHOICES
+      LABEL
+        SCENE
+        HP
+        LOOT
+        ITEM
+        CHOICES
+    LABEL Walk away quietly.
+      SCENE You encounter a hunter who offers to take you away from here.
+      HP 0
+      LOOT 0
+      ITEM none
+      CHOICES 0
+  LABEL Run away quickly.
+    SCENE You fall into a pitfall
+    HP -4
+    LOOT 0
+    ITEM none
+    CHOICES 2
+    LABEL Climb out.
+      SCENE You attempt to climb out, but you fall back down.
+      HP -4
+      LOOT 0
+      ITEM none
+      CHOICES 1
+      LABEL Try to find another way out.
+        SCENE You stumble around and eventually fall off of a ledge.
+        HP -2
+        LOOT 0
+        ITEM none
+        CHOICES 0
+    LABEL Search the Pit.
+      SCENE You find yourself to be in a cave system.
+      HP 0
+      LOOT 6
+      ITEM Climbing pick
+      CHOICES 2
+      LABEL Explore the cave.
+        SCENE You find an exit to the cave.
+        HP 0
+        LOOT 0
+        ITEM none
+        CHOICES 1
+        LABEL Exit the cave.
+          SCENE The mouth of the cave opens to the side of a highway, you have found a way to get back to civilization.
+          HP 0
+          LOOT 0
+          ITEM none
+          CHOICES 0
+      LABEL Climb out
+        SCENE Once you climb out a hunter shoots you.
+        HP -5
+        LOOT 0
+        ITEM none
+        CHOICES 1
+        LABEL Run away.
+          SCENE You trip on a small stone.
+          HP -1
+          LOOT 0
+          ITEM none
+          CHOICES 0
+LABEL Pick a direction and start walking.
+  SCENE After pushing through some thorns, you discover an abandoned campsite.
+  HP -1
+  LOOT 5
+  ITEM Fire axe
+  CHOICES 3
+  LABEL Rest at the campsite.
+    SCENE You go to sleep to try to heal your wounds.
+    HP 1
+    LOOT 0
+    ITEM none
+    CHOICES 1
+    LABEL Sleep through the night.
+      SCENE Something kills you during the night.
+      HP -10
+      LOOT 0
+      ITEM none
+      CHOICES 0
+  LABEL Explore the surrounding area.
+    SCENE You discover signs of a struggle, and a path leading somewhere.
+    HP -1
+    LOOT 0
+    ITEM Cloth scraps
+    CHOICES 1
+    LABEL Follow the path.
+      SCENE You discover a grotesque scene, a beast's lair.
+      HP 0
+      LOOT 4
+      ITEM none
+      CHOICES 2
+      LABEL Wait in hiding for the beast to return.
+        SCENE A strange creature appears, it seems gnarled and gangly.
+        HP 0
+        LOOT 0
+        ITEM none
+        CHOICES 1
+        LABEL Jump out from hiding and attack.
+          SCENE You bring your axe down upon the beast's neck, beheading it.
+          HP -2
+          LOOT 7
+          ITEM The creature's head
+          CHOICES 1
+          LABEL Live out the rest of your life.
+            SCENE You have cleared the forest of its dark presence.
+            HP 0
+            LOOT 0
+            ITEM none
+            CHOICES 0
+      LABEL Escape while the area is clear.
+        SCENE A creature shows up and attacks you.
+        HP -7
+        LOOT 0
+        ITEM none
+        CHOICES 1
+        LABEL Try to escape.
+          SCENE You fail to escape, the creature defeats you.
+          HP -1
+          LOOT 0
+          ITEM none
+          CHOICES 0
+  LABEL Keep walking.
+    SCENE Staying your course, you reach a lake. Something is glowing inside it.
+    HP 0
+    LOOT
+    ITEM
+    CHOICES 2
+    LABEL Swim towards the glowing spot.
+      SCENE You get trapped underwater for a lot longer than expected.
+      HP -8
+      LOOT 10
+      ITEM Sunken Treasure
+      CHOICES 1
+      LABEL You caught a fever.
+        SCENE You are unable to treat yourself in time.
+        HP -1
+        LOOT 0
+        ITEM none
+        CHOICES 0
+    LABEL Walk around the lake.
+      SCENE You find a campground.
+      HP 0
+      LOOT 3
+      ITEM none
+      CHOICES 1
+      LABEL Hitch a ride back to society.
+        SCENE You have escaped the forest relatively unharmed.
+        HP 0
+        LOOT 0
+        ITEM none
+        CHOICES 0
+LABEL Head towards a faint light.
+  SCENE You wake up from that "dream" well rested.
+  HP 0
+  LOOT 0
+  ITEM A good nights "sleep"
+  CHOICES 0

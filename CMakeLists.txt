@@ -46,4 +46,4 @@ add_executable(Programming_Assignment_2 Programming_Assignment_2/main.cpp
         Programming_Assignment_2/StoryTree.h)
 configure_file(Programming_Assignment_2/bee_movie.txt Programming_Assignment_2/bee_movie.txt COPYONLY)
 configure_file(Programming_Assignment_2/bad_story.txt Programming_Assignment_2/bad_story.txt COPYONLY)
-configure_file(Programming_Assignment_2/Forrest.txt Programming_Assignment_2/Forrest.txt COPYONLY)
+configure_file(Programming_Assignment_2/Forest.txt Programming_Assignment_2/Forest.txt COPYONLY)
