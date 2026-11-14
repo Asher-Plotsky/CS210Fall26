@@ -40,18 +40,18 @@ LABEL Search the surrounding area.
       LOOT 0
       ITEM None
       CHOICES 2
-      LABEL
-        SCENE
-        HP
-        LOOT
-        ITEM
-        CHOICES
-      LABEL
-        SCENE
-        HP
-        LOOT
-        ITEM
-        CHOICES
+      LABEL Walk away.
+        SCENE You step onto a bear trap.
+        HP -2
+        LOOT 0
+        ITEM none
+        CHOICES 0
+      LABEL Succumb.
+        SCENE You die.
+        HP -2
+        LOOT 0
+        ITEM none
+        CHOICES 0
     LABEL Walk away quietly.
       SCENE You encounter a hunter who offers to take you away from here.
       HP 0
