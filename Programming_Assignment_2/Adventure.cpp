@@ -66,12 +66,14 @@ bool Adventure::load(const std::string& fileName) {
     std::ifstream in(fileName);
     if (!in.is_open()) {
         std::cout << "Error: could not open file <" << fileName << ">" << std::endl;
+        in.close();
         return false;
     }
     try
     {
         std::string line;
         if (!std::getline(in, line)) {
+            in.close();
             return false;
         }
         if (line.find("START_HP") != std::string::npos) {
@@ -137,7 +139,7 @@ Scene<Moment>* Adventure::readScene(std::ifstream& in, const std::string& label)
             text = text.erase(0,text.find_first_not_of(" "));
         }
     }
-    Moment* data_ = new Moment(text, label, hp, loot, item);
+    Moment* data_ = new Moment(text, labels, hp, loot, item);
     Scene<Moment>* scene = new Scene<Moment>(data_, choice);
     for (int i = 0; i < scene -> getNumChoices(); i++) {
         if (!std::getline(in, line)) {
@@ -145,9 +147,9 @@ Scene<Moment>* Adventure::readScene(std::ifstream& in, const std::string& label)
         }
         if (line.find("LABEL") != std::string::npos){
             line.erase(0,line.find_first_not_of(" "));
-            text = line.substr(5);
-            text = text.erase(0,text.find_first_not_of(" "));
-            scene -> setChoice(i, readScene(in, text));
+            labels = line.substr(5);
+            labels = labels.erase(0,labels.find_first_not_of(" "));
+            scene -> setChoice(i, readScene(in, labels));
             if (scene -> getChoice(i) == nullptr) {
                 return nullptr;
             }

@@ -1,0 +1,108 @@
+START_HP 10
+SCENE You wake up in a dark forest.
+HP 0
+LOOT 0
+ITEM none
+CHOICES 3
+LABEL Search the surrounding area.
+  SCENE You hear a crack in the near distance.
+  HP 0
+  LOOT 3
+  ITEM Flashlight
+  CHOICES 2
+  LABEL Walk towards the noise.
+    SCENE Pointing with your flashlight, you notice something in the distance.
+    HP 0
+    LOOT 0
+    ITEM none
+    CHOICES 3
+    LABEL Call out towards it.
+      SCENE The creature runs away, you check out what it was doing.
+      HP 0
+      LOOT 4
+      ITEM Bloody cloth.
+      CHOICES 2
+      LABEL
+        SCENE
+        HP
+        LOOT
+        ITEM
+        CHOICES
+      LABEL
+        SCENE
+        HP
+        LOOT
+        ITEM
+        CHOICES
+    LABEL Turn off your flashlight and walk towards the creature silently.
+      SCENE The creature mauls you.
+      HP -8
+      LOOT 0
+      ITEM None
+      CHOICES 2
+      LABEL
+        SCENE
+        HP
+        LOOT
+        ITEM
+        CHOICES
+      LABEL
+        SCENE
+        HP
+        LOOT
+        ITEM
+        CHOICES
+    LABEL
+      SCENE
+      HP
+      LOOT
+      ITEM
+      CHOICES
+  LABEL Run away quickly.
+    SCENE You fall into a pitfall
+    HP -4
+    LOOT 0
+    ITEM none
+    CHOICES 2
+    LABEL
+      SCENE
+      HP
+      LOOT
+      ITEM
+      CHOICES
+    LABEL
+      SCENE
+      HP
+      LOOT
+      ITEM
+      CHOICES
+LABEL Pick a direction and start walking.
+  SCENE After pushing through some thorns, you discover an abandoned campsite.
+  HP -1
+  LOOT 5
+  ITEM none
+  CHOICES 3
+  LABEL
+    SCENE
+    HP
+    LOOT
+    ITEM
+    CHOICES
+  LABEL
+    SCENE
+    HP
+    LOOT
+    ITEM
+    CHOICES
+  LABEL
+    SCENE
+    HP
+    LOOT
+    ITEM
+    CHOICES
+LABEL Head towards a faint light.
+  SCENE You wake up from that "dream" well rested.
+  HP 0
+  LOOT 0
+  ITEM A good nights "sleep"
+  CHOICES 0
