@@ -77,7 +77,11 @@ bool Adventure::load(const std::string& fileName) {
         if (line.find("START_HP") != std::string::npos) {
             line = line.substr(8);
             startHp_ = std::stoi(line);
-            tree_.setRoot(readScene(in, "START"));
+            Scene<Moment>* root = readScene(in, "START");
+            if (root == nullptr) {
+                return false;
+            }
+            tree_.setRoot(root);
             in.close();
             return true;
         }
@@ -122,7 +126,7 @@ Scene<Moment>* Adventure::readScene(std::ifstream& in, const std::string& label)
             item = item.erase(0,item.find_first_not_of(" "));
         }
         if (line.find("CHOICES") != std::string::npos) {
-            if (std::stoi(line.substr(7)) > Scene<Moment>::MAX_CHOICES || std::stoi(line.substr(5)) < 0) {
+            if (std::stoi(line.substr(7)) > Scene<Moment>::MAX_CHOICES || std::stoi(line.substr(7)) < 0) {
                 std::cout << "Error: scene " << text <<" has " << line.substr(7) << " choices. The limit is 3." << std::endl;
                 return nullptr;
             }
@@ -195,7 +199,49 @@ int Adventure::askChoice(int numChoices) {
 // and then print the bag.
 // The bag is a List<Item>. Start with HP = startHp_ and loot = 0.
 void Adventure::play() {
+    Scene<Moment>* scene = tree_.getRoot();
+    int hp = startHp_;
+    int loot = 0;
+    List<Item> bag;
 
+    while (scene != nullptr)
+    {
+        hp += scene -> getData() -> getHpChange();
+        loot += scene -> getData() -> getLoot();
+        std::cout << "----------------------------------------" << std::endl;
+        std::cout << scene -> getData() -> getText() << std::endl;
+        if (!scene -> getData() -> getItem().empty()) {
+            Item item = scene -> getData() -> getItem();
+            if (bag.search(item)) {
+                std::cout << "You already have: " << item << std::endl;
+            }
+            else {
+                bag.addFront(new Item(item));
+                std::cout << "You picked up: " << item << std::endl;
+            }
+        }
+
+        std::cout << "HP: " << hp << "  Loot: " << loot << std::endl;
+        if (hp <= 0) {
+            std::cout << "Your HP hit 0. GAME OVER." << std::endl;
+            break;
+        }
+        if (scene -> getNumChoices() == 0) {
+            std::cout << "THE END." << std::endl;
+            break;
+        }
+        for (int i = 0; i < scene -> getNumChoices(); i++) {
+            std::cout << "[" << i + 1 << "] " << scene -> getChoice(i) -> getData() -> getLabel() << std::endl;
+        }
+        int choice = askChoice(scene -> getNumChoices());
+        if (choice == 0) {
+            break;
+        }
+        scene = scene -> getChoice(choice - 1);
+    }
+    std::cout << "Final HP: " << hp << "  Final loot: " << loot << std::endl;
+    std::cout << "Inventory: (" << bag.size() << "items):" << std::endl;
+    bag.print();
 }
 
 // ===================== ANALYZING =====================
@@ -297,6 +343,7 @@ void Adventure::greedyRun() const {
                 continue;
             }
             if (scene -> getChoice(i) -> getData() -> getLoot() > most) {
+                most = scene -> getChoice(i) -> getData() -> getLoot();
                 next = scene -> getChoice(i);
                 choice = i;
             }
