@@ -60,6 +60,7 @@ int main(int argc, char* argv[]) {
             game.printSpoilers();
         } else if (choice == "4") {
             game.greedyRun();
+            std::cout << std::endl;
             game.optimalRun();
         } else if (choice == "5") {
             break;

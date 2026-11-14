@@ -143,7 +143,8 @@ Scene<Moment>* Adventure::readScene(std::ifstream& in, const std::string& label)
         if (!std::getline(in, line)) {
             return nullptr;
         }
-        if (line.find("Label") != std::string::npos){
+        if (line.find("LABEL") != std::string::npos){
+            line.erase(0,line.find_first_not_of(" "));
             text = line.substr(5);
             text = text.erase(0,text.find_first_not_of(" "));
             scene -> setChoice(i, readScene(in, text));
@@ -240,7 +241,7 @@ void Adventure::play() {
         scene = scene -> getChoice(choice - 1);
     }
     std::cout << "Final HP: " << hp << "  Final loot: " << loot << std::endl;
-    std::cout << "Inventory: (" << bag.size() << "items):" << std::endl;
+    std::cout << "Inventory: (" << bag.size() << " items):" << std::endl;
     bag.print();
 }
 
@@ -251,9 +252,9 @@ void Adventure::play() {
 //   Endings: <count>
 //   Longest playthrough: <height> choices
 void Adventure::printStats() const {
-    std::cout << tree_.countScenes() << std::endl;
-    std::cout << tree_.countEndings() << std::endl;
-    std::cout << std::to_string(tree_.height()) << std::endl;
+    std::cout << "Scenes: " << tree_.countScenes() << std::endl;
+    std::cout << "Endings: " << tree_.countEndings() << std::endl;
+    std::cout << "Longest playthrough: " << std::to_string(tree_.height()) << " choices" <<std::endl;
 }
 
 // TODO 15: print every ending in the story, one per line.
@@ -271,6 +272,7 @@ void Adventure::printSpoilers(Scene<Moment>* scene) const {
     }
     if (scene->getNumChoices() == 0) {
         std::cout << scene->getData()->getText() << std::endl;
+        std::cout << std::endl;
         return;
     }
     for (int i = 0; i < scene->getNumChoices(); i++) {
@@ -324,44 +326,59 @@ void Adventure::greedyRun() const {
     int choice = -1;
     Scene<Moment>* scene = tree_.getRoot();
     Scene<Moment>* next = nullptr;
+    std::cout << "Greedy Advisor: " << std::endl;
+
     if (scene == nullptr) {
-        std::cout << "Path: " << path << std::endl;
-        std::cout << "Loot: " << loot << std::endl;
-        std::cout << "Result: Did not Start" << std::endl;
+        std::cout << "  Path: " << path << std::endl;
+        std::cout << "  Loot: " << loot << std::endl;
+        std::cout << "  Result: Did not Start" << std::endl;
         return;
     }
-    while (hp > 0) {
-        if (scene -> getNumChoices() == 0){
-            std::cout << "Path: " << path << std::endl;
-            std::cout << "Loot: " << loot << std::endl;
-            std::cout << "Result: Reached an ending" << std::endl;
+
+    while (scene != nullptr && hp > 0) {
+        if (scene->getNumChoices() == 0) {
+            std::cout << "  Path: " << path << std::endl;
+            std::cout << "  Loot: " << loot << std::endl;
+            std::cout << "  Result: Reached an ending" << std::endl;
             return;
         }
+
         int most = -99999999;
+        next = nullptr;
+        choice = -1;
+
         for (int i = 0; i < scene->getNumChoices(); i++) {
-            if (scene -> getChoice(i) == nullptr){
+            if (scene->getChoice(i) == nullptr) {
                 continue;
             }
-            if (scene -> getChoice(i) -> getData() -> getLoot() > most) {
-                most = scene -> getChoice(i) -> getData() -> getLoot();
-                next = scene -> getChoice(i);
+
+            if (scene->getChoice(i)->getData()->getLoot() > most) {
+                most = scene->getChoice(i)->getData()->getLoot();
+                next = scene->getChoice(i);
                 choice = i;
             }
         }
+
+        if (next == nullptr) {
+            break;
+        }
+
         scene = next;
-        loot += scene -> getData() -> getLoot();
-        hp += scene -> getData()->getHpChange();
-        if (path == ""){
+
+        loot += scene->getData()->getLoot();
+        hp += scene->getData()->getHpChange();
+
+        if (path == "") {
             path += std::to_string(choice + 1);
         }
         else {
             path += "-" + std::to_string(choice + 1);
         }
-
     }
-    std::cout << "Path: " << path << std::endl;
-    std::cout << "Loot: " << loot << std::endl;
-    std::cout << "Result: Died" << std::endl;
+
+    std::cout << "  Path: " << path << std::endl;
+    std::cout << "  Loot: " << loot << std::endl;
+    std::cout << "  Result: Died" << std::endl;
 }
 
 // TODO 18: the best total loot you can collect from scene down to an ending,
